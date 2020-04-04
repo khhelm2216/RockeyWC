@@ -1,0 +1,39 @@
+﻿@model IEnumerable<RockeyWC.Models.ActionLog>
+@{
+    ViewBag.Title = "ActionLog";
+}
+
+<h2>ActionLog</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Action)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Controller)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HttpMethod)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.URL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActionDate)
+        </th>
+    </tr>
+    @foreach (ActionLog log in Model)
+    {
+        <tr>
+            <td>@log.Action</td>
+            <td>@log.Controller</td>
+            <td>@log.HttpMethod</td>
+            <td>@log.URL</td>
+            <td>@log.ActionDate</td>
+        </tr>
+    }
+</table>
+<div>
+    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ClearLogs">Clear Logs</a>
+</div>
