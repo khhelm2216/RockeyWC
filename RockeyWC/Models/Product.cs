@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using RockeyWC.Models.ViewModels;
 
-namespace PupMart.Models
+namespace RockeyWC.Models
 {
 
     public class Product
@@ -21,5 +22,11 @@ namespace PupMart.Models
 
         [Required(ErrorMessage = "Please specify a category")]
         public string Category { get; set; }
+
+        public bool IsRental { get; set; }
+
+        public bool ForPurchase { get; set; }
+
+        public int AvailableQty { get; set; }
     }
 }

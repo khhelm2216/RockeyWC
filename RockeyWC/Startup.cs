@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RockeyWC.Models;
 
 namespace RockeyWC
 {
@@ -31,6 +32,8 @@ namespace RockeyWC
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+
+            services.AddTransient<IProductRepository, FakeProductRepository>();
 
             // Database access
             services.AddTransient<IActionLogRepository, FakeActionLogRepository>();

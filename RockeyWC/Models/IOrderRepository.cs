@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace PupMart.Models {
+namespace RockeyWC.Models {
 
     // Provides access to order objects
     public interface IOrderRepository {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace PupMart.Models {
+namespace RockeyWC.Models {
 
     public class Cart {
         private List<CartLine> lineCollection = new List<CartLine>();

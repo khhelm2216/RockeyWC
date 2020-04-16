@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using RockeyWC.Models;
+using RockeyWC.Models.ViewModels;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -10,10 +12,17 @@ namespace RockeyWC.Controllers
 {
     public class ProductController : Controller
     {
-        // GET: /<controller>/
-        public ViewResult List()
+        private IProductRepository repositoy;
+
+        public ProductController(IProductRepository repo)
         {
-            return View();
+            repositoy = repo;
         }
+
+        // GET: /<controller>/
+        public ViewResult List() => View(new ProductsListViewModel
+        {
+            Products = repositoy.Products
+        });
     }
 }
