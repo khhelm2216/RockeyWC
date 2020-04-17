@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RockeyWC.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace RockeyWC
 {
@@ -26,19 +28,18 @@ namespace RockeyWC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
-
-            services.AddTransient<IProductRepository, FakeProductRepository>();
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration["Data:RockeyWCProducts:ConnectionString"]));
+            services.AddTransient<IProductRepository, EFProductRepository>();
+            services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             // Database access
             services.AddTransient<IActionLogRepository, FakeActionLogRepository>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc();
+                //.SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,7 +56,7 @@ namespace RockeyWC
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -71,16 +72,17 @@ namespace RockeyWC
                     name: "Rentals",
                     template: "{controller=Rental}/{action=List}/{id?}");
                 routes.MapRoute(
-                    name: "Admin",
+                    name: "Admin-Index",
                     template: "{controller=Admin}/{action=Index}/{id?}");
                 routes.MapRoute(
-                    name: "Admin",
+                    name: "Admin-Edit",
                     template: "{controller=Admin}/{action=Edit}/{id?}");
                 routes.MapRoute(
                     name: "ActionLogs",
                     template: "{controller=Home}/{action=ActionLogs}"
                 );
             });
+            SeedData.EnsurePopulated(app);
         }
     }
 }

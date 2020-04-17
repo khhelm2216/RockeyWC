@@ -12,17 +12,31 @@ namespace RockeyWC.Controllers
 {
     public class ProductController : Controller
     {
-        private IProductRepository repositoy;
+        private IProductRepository repository;
+        public int PageSize = 4;
 
         public ProductController(IProductRepository repo)
         {
-            repositoy = repo;
+            repository = repo;
         }
 
         // GET: /<controller>/
-        public ViewResult List() => View(new ProductsListViewModel
+        public ViewResult List(string category, int productPage = 1) => View(new ProductsListViewModel
         {
-            Products = repositoy.Products
+            Products = repository.Products
+                    .Where(p => category == null || p.Category == category)
+                    .OrderBy(p => p.ProductID)
+                    .Skip((productPage - 1) * PageSize)
+                    .Take(PageSize),
+            PagingInfo = new PagingInfo
+            {
+                CurrentPage = productPage,
+                ItemsPerPage = PageSize,
+                TotalItems = category == null ?
+                        repository.Products.Count() :
+                        repository.Products.Where(e => e.Category == category).Count()
+            },
+            CurrentCategory = category
         });
     }
 }

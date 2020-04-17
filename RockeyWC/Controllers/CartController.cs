@@ -1,11 +1,9 @@
-﻿//I will be implmenting and expanding this code to include cart features for rentals
-
-/*using System.Linq;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-//using RockeyWC.Infrastructure;
+using RockeyWC.Infrastructure;
 using RockeyWC.Models;
-//using RockeyWC.Models.ViewModels;
+using RockeyWC.Models.ViewModels;
 
 namespace RockeyWC.Controllers {
 
@@ -53,4 +51,3 @@ namespace RockeyWC.Controllers {
         }
     }
 }
-*/

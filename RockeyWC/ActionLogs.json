@@ -1,1 +1,42 @@
-[]
+[
+  {
+    "Id": 1,
+    "Action": "Index",
+    "Controller": "RockeyWC.Controllers.AdminController",
+    "HttpMethod": "GET",
+    "URL": "/Admin",
+    "ActionDate": "2020-04-16T22:22:27.0802807-06:00"
+  },
+  {
+    "Id": 2,
+    "Action": "Index",
+    "Controller": "RockeyWC.Controllers.HomeController",
+    "HttpMethod": "GET",
+    "URL": "/",
+    "ActionDate": "2020-04-16T22:24:49.9935235-06:00"
+  },
+  {
+    "Id": 3,
+    "Action": "Index",
+    "Controller": "RockeyWC.Controllers.HomeController",
+    "HttpMethod": "GET",
+    "URL": "/",
+    "ActionDate": "2020-04-16T22:28:34.9414212-06:00"
+  },
+  {
+    "Id": 4,
+    "Action": "Index",
+    "Controller": "RockeyWC.Controllers.HomeController",
+    "HttpMethod": "GET",
+    "URL": "/",
+    "ActionDate": "2020-04-16T22:32:48.2591027-06:00"
+  },
+  {
+    "Id": 5,
+    "Action": "Index",
+    "Controller": "RockeyWC.Controllers.HomeController",
+    "HttpMethod": "GET",
+    "URL": "/",
+    "ActionDate": "2020-04-16T23:00:07.763541-06:00"
+  }
+]
