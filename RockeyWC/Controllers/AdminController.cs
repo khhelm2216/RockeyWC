@@ -6,49 +6,52 @@ using Microsoft.AspNetCore.Mvc;
 using RockeyWC.Database;
 using RockeyWC.FilterLibrary;
 using RockeyWC.Models;
-using System.Linq;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace RockeyWC.Controllers
 {
     public class AdminController : Controller
     {
         private IProductRepository repository;
-        private IActionLogRepository adminRepository;
-        public AdminController(IActionLogRepository DI_Repository)
+
+        public AdminController(IProductRepository repo)
         {
-            adminRepository = DI_Repository;
+            repository = repo;
         }
 
-        [ActionLog]
-        public ViewResult Index()
+        public ViewResult Index() => View(repository.Products);
+
+        public ViewResult Edit(int productId) =>
+            View(repository.Products
+                .FirstOrDefault(p => p.ProductID == productId));
+
+        [HttpPost]
+        public IActionResult Edit(Product product)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                repository.SaveProduct(product);
+                TempData["message"] = $"{product.Name} has been saved";
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                // there is something wrong with the data values
+                return View(product);
+            }
         }
 
-        [ActionLog]
-        public ViewResult Edit()
-        {
-            return View();
-        }
-
-        //Stubbed action methods
-
-        /*[HttpPost]
-        public IActionResult Edit()
-        {
-            return View();
-        }
-
-        //For creating products, orders, and rentals
         public ViewResult Create() => View("Edit", new Product());
 
         [HttpPost]
         public IActionResult Delete(int productId)
         {
-            //action statement for deleting item, to be implemented in products, orders, and rentals
+            Product deletedProduct = repository.DeleteProduct(productId);
+            if (deletedProduct != null)
+            {
+                TempData["message"] = $"{deletedProduct.Name} was deleted";
+            }
+            return RedirectToAction("Index");
         }
-        */
     }
 }

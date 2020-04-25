@@ -15,7 +15,7 @@ namespace RockeyWC.Models
 
         public IQueryable<Product> Products => context.Products;
 
-        /*public void SaveProduct(Product product)
+        public void SaveProduct(Product product)
         {
             if (product.ProductID == 0)
             {
@@ -46,6 +46,6 @@ namespace RockeyWC.Models
                 context.SaveChanges();
             }
             return dbEntry;
-        }*/
+        }
     }
 }

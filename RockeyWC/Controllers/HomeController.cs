@@ -22,14 +22,12 @@ namespace RockeyWC.Controllers
             return View();
         }
 
-        // Show the action logs
         public ActionResult ActionLogs()
         {
             var actionLogs = (from a in repository.LogListing select a).ToList();
             return View(actionLogs);
         }
 
-        // Clear logs as they persist like a database
         public ActionResult ClearLogs()
         {
             repository.DeleteAllLogActions();

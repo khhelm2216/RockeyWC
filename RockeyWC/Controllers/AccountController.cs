@@ -1,17 +1,17 @@
 ﻿//To be implemented once Identity dbContext is set up.
 
-/*using System.Threading.Tasks;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 //using RockeyWC.Models.ViewModels;
-using RockeyWC.Models;
+/*using RockeyWC.Models;
 
 namespace RockeyWC.Controllers {
 
     [Authorize]
     public class AccountController : Controller {
-        private UserManager<IdentityUser> userManager;
+        /*private UserManager<IdentityUser> userManager;
         private SignInManager<IdentityUser> signInManager;
 
         public AccountController(UserManager<IdentityUser> userMgr,
@@ -19,6 +19,7 @@ namespace RockeyWC.Controllers {
             userManager = userMgr;
             signInManager = signInMgr;
             //IdentitySeedData.EnsurePopulated(userMgr).Wait();
+            
         }
 
         [AllowAnonymous]

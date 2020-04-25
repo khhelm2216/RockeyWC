@@ -32,8 +32,7 @@ namespace RockeyWC
             services.AddTransient<IProductRepository, EFProductRepository>();
             services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
-            // Database access
+            services.AddTransient<IOrderRepository, EFOrderRepository>();
             services.AddTransient<IActionLogRepository, FakeActionLogRepository>();
 
             services.AddMvc();
@@ -63,8 +62,22 @@ namespace RockeyWC
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
                 routes.MapRoute(
-                    name:"Products",
-                    template: "{controller=Product}/{action=List}/{id?}");
+                    name: null,
+                    template: "{category}/Page{productPage:int}",
+                    defaults: new { controller = "Product", action = "List" }
+                );
+
+                routes.MapRoute(
+                    name: null,
+                    template: "Page{productPage:int}",
+                    defaults: new { controller = "Product", action = "List", productPage = 1 }
+                );
+
+                routes.MapRoute(
+                    name: null,
+                    template: "{category}",
+                    defaults: new { controller = "Product", action = "List", productPage = 1 }
+                );
                 routes.MapRoute(
                     name: "Orders",
                     template: "{controller=Order}/{action=List}/{id?}");

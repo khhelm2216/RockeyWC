@@ -1,5 +1,20 @@
 ﻿@model Product
 
+@{ 
+    var type = "";
+    var pType = @Model.ForPurchase;
+    var rType = Model.IsRental;
+    if (pType)
+    {
+        type = "For Purchase";
+    }
+    else if (rType)
+    {
+        type = "For Rent";
+    }
+
+}
+
     <div class="card card-outline-primary m-1 p-1">
         <div class="bg-faded p-1">
             <h4>
@@ -14,6 +29,8 @@
             <input type="hidden" asp-for="ProductID" />
             <input type="hidden" name="returnUrl"
                    value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+            <span class="badge-light">Stock: @Model.AvailableQty</span>
+            <span class="badge-info">@type</span>
             <span class="card-text p-1">
                 @Model.Description
                 <button type="submit"
