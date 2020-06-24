@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace RockeyWC.Controllers
 {
+    //Being used, but not working yet. Need authorizaiton for inventory/rental management specific people
     public class RentalController : Controller
     {
         // GET: /<controller>/

@@ -29,6 +29,10 @@ namespace RockeyWC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration["Data:RockeyWCProducts:ConnectionString"]));
+            services.AddDbContext<AppIdentityDbContext>(options => 
+                options.UseSqlServer(Configuration["Data:RockeyWCIdentity:ConnectionString"]));
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppIdentityDbContext>()
+                .AddDefaultTokenProviders();
             services.AddTransient<IProductRepository, EFProductRepository>();
             services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -56,6 +60,7 @@ namespace RockeyWC
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseSession();
+            app.UseAuthentication();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -94,8 +99,14 @@ namespace RockeyWC
                     name: "ActionLogs",
                     template: "{controller=Home}/{action=ActionLogs}"
                 );
+                routes.MapRoute(
+                    name: null,
+                    template: "Account/{action}/{ReturnUrl}",
+                    defaults: new { controller = "Accoubt" }
+                );
             });
             SeedData.EnsurePopulated(app);
+            IdentitySeedData.EnsurePopulated(app);
         }
     }
 }

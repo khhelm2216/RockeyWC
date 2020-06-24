@@ -43,6 +43,12 @@ namespace RockeyWC.Controllers
             return View();
         }
 
+        public FileContentResult UserGuide()
+        {
+            var bytes = System.IO.File.ReadAllBytes("wwwroot/images/PeabodyGuide.pdf");
+            return new FileContentResult(bytes, "application/pdf");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

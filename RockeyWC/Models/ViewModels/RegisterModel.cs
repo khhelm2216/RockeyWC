@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RockeyWC.Models.ViewModels {
+namespace RockeyWC.Models.ViewModels
+{
 
-    public class LoginModel {
+    public class RegisterModel
+    {
 
         [Required]
         public string Name { get; set; }
@@ -12,5 +14,6 @@ namespace RockeyWC.Models.ViewModels {
         public string Password { get; set; }
 
         public string ReturnUrl { get; set; } = "/";
+        public string Role { get; set; }
     }
 }
